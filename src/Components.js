@@ -18,10 +18,9 @@ function AccordionButton({ isOpen, children, onClick }) {
 function AccordionContents({ isOpen, children, ...props }) {
   return (
     <div
+      className="accordion-contents"
       style={{
         maxHeight: isOpen ? "200px" : "0px",
-        overflowY: "hidden",
-        textAlign: "justify",
       }}
       {...props}
     >
@@ -60,60 +59,22 @@ function TabButton({ isOpen, children, onClick }) {
 }
 
 function TabItems({ children }) {
-  return (
-    <div
-      style={{
-        position: "relative",
-        minHeight: 120,
-        display: "flex",
-      }}
-    >
-      {children}
-    </div>
-  );
-}
-
-function BelowTabItem({ open, children, ...props }) {
-  return (
-    <div
-      style={{
-        opacity: open ? "1" : "0",
-        top: open ? "30" : "0",
-        position: "absolute",
-        overflowY: "hidden",
-      }}
-      {...props}
-    >
-      {children}
-    </div>
-  );
-}
-
-function AboveTabItem({ open, children, ...props }) {
-  return (
-    <div
-      style={{
-        opacity: open ? "1" : "0",
-        top: open ? "0" : "30",
-        position: "absolute",
-        overflowY: "hidden",
-      }}
-      {...props}
-    >
-      {children}
-    </div>
-  );
+  return <div className="tab-items">{children}</div>;
 }
 
 function TabItem({ position, isOpen, children, ...props }) {
-  return position === "above" ? (
-    <AboveTabItem open={isOpen} {...props}>
+  const topValue = position === "above" ? [0, 30] : [30, 0];
+  return (
+    <div
+      className="tab-item"
+      style={{
+        opacity: isOpen ? "1" : "0",
+        top: isOpen ? topValue[0] : topValue[1],
+      }}
+      {...props}
+    >
       {children}
-    </AboveTabItem>
-  ) : (
-    <BelowTabItem open={isOpen} {...props}>
-      {children}
-    </BelowTabItem>
+    </div>
   );
 }
 

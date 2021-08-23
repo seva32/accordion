@@ -148,7 +148,7 @@ function App() {
       }}
     >
       <Accordion items={items} reducer={singleReducer} />
-      <Tabs items={items} position="" />
+      <Tabs items={items} position="above" />
     </div>
   );
 }
