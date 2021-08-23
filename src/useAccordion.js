@@ -1,6 +1,7 @@
 import { useReducer } from "react";
 
 const actionTypes = { toggle_index: "toggle_index" };
+
 function accordionReducer(openIndexes, action) {
   switch (action.type) {
     case actionTypes.toggle_index: {
@@ -15,6 +16,33 @@ function accordionReducer(openIndexes, action) {
   }
 }
 
+function preventCloseReducer(openIndexes, action) {
+  if (action.type === actionTypes.toggle_index) {
+    const closing = openIndexes.includes(action.index);
+    const isLast = openIndexes.length < 2;
+    if (closing && isLast) {
+      return openIndexes;
+    }
+  }
+}
+
+function singleReducer(openIndexes, action) {
+  if (action.type === actionTypes.toggle_index) {
+    const closing = openIndexes.includes(action.index);
+    if (!closing) {
+      return [action.index];
+    }
+  }
+}
+
+function combineReducers(...reducers) {
+  return (state, action) => {
+    for (const reducer of reducers) {
+      const result = reducer(state, action);
+      if (result) return result;
+    }
+  };
+}
 // el reducer default es el accordionReducer, por eso es optativa la prop reducer en Accordion
 // tengo el comportamiento de base ahi, y si necesito mas comportamiento agrego reducers
 function useAccordion({ reducer = accordionReducer } = {}) {
@@ -24,4 +52,11 @@ function useAccordion({ reducer = accordionReducer } = {}) {
   return { openIndexes, toggleIndex };
 }
 
-export { useAccordion, accordionReducer, actionTypes };
+export {
+  useAccordion,
+  accordionReducer,
+  preventCloseReducer,
+  singleReducer,
+  combineReducers,
+  actionTypes,
+};

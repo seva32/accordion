@@ -8,39 +8,17 @@ import {
   TabItems,
   TabButtons,
 } from "./Components.js";
-import { useAccordion, accordionReducer, actionTypes } from "./useAccordion.js";
-
-function preventCloseReducer(openIndexes, action) {
-  if (action.type === actionTypes.toggle_index) {
-    const closing = openIndexes.includes(action.index);
-    const isLast = openIndexes.length < 2;
-    if (closing && isLast) {
-      return openIndexes;
-    }
-  }
-}
-
-function singleReducer(openIndexes, action) {
-  if (action.type === actionTypes.toggle_index) {
-    const closing = openIndexes.includes(action.index);
-    if (!closing) {
-      return [action.index];
-    }
-  }
-}
-
-function combineReducers(...reducers) {
-  return (state, action) => {
-    for (const reducer of reducers) {
-      const result = reducer(state, action);
-      if (result) return result;
-    }
-  };
-}
+import {
+  useAccordion,
+  accordionReducer,
+  combineReducers,
+  singleReducer,
+  preventCloseReducer,
+} from "./useAccordion.js";
 
 function Accordion({ items, reducer = () => {}, ...props }) {
   const { openIndexes, toggleIndex } = useAccordion({
-    reducer: combineReducers(reducer, accordionReducer),
+    reducer: combineReducers(reducer, preventCloseReducer),
   });
   return (
     <div>
