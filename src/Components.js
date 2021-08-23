@@ -63,13 +63,13 @@ function TabItems({ children }) {
 }
 
 function TabItem({ position, isOpen, children, ...props }) {
-  const topValue = position === "above" ? [0, 30] : [30, 0];
+  const topValue = position === "above" ? (isOpen ? 0 : 30) : isOpen ? 30 : 0;
   return (
     <div
       className="tab-item"
       style={{
         opacity: isOpen ? "1" : "0",
-        top: isOpen ? topValue[0] : topValue[1],
+        top: topValue,
       }}
       {...props}
     >
