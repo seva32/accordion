@@ -1,0 +1,23 @@
+.accordion-btn {
+  text-align: "left";
+  min-width: 80px;
+  cursor: "pointer";
+  flex: 1;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 20px;
+  border: "none";
+  background-color: "unset";
+}
+
+.accordion-btn:focus {
+  outline: "none";
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.accordion-item {
+  display: "grid";
+  grid-template: "auto auto";
+  grid-gap: 4px;
+  grid-auto-flow: "row";
+}
