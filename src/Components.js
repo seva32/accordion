@@ -42,16 +42,15 @@ function AccordionItem({ direction, children }) {
 }
 
 function TabButtons({ children }) {
-  return <div style={{ display: "flex" }}>{children}</div>;
+  return <div className="tab-buttons">{children}</div>;
 }
 
 function TabButton({ isOpen, children, onClick }) {
   return (
     <button
-      className="accordion-btn"
+      className="accordion-btn tab-btn"
       style={{
         backgroundColor: isOpen ? "rgba(255, 255, 255, 0.2)" : null,
-        textAlign: "center",
       }}
       onClick={() => onClick()}
     >

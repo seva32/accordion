@@ -21,3 +21,11 @@
   grid-gap: 4px;
   grid-auto-flow: "row";
 }
+
+.tab-buttons {
+  display: "flex";
+}
+
+.tab-btn {
+  text-align: "center";
+}
